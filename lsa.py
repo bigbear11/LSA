@@ -34,6 +34,18 @@ class lsa():
             for idx in idxs:
                 line += str(self.vocabs[idx]) + " "
             print(line)
+    def tfidf_matrix(self):
+        tf = matrix()
+        print(tf)
+        df = np.ones([len(self.vocabs), 1])
+
+        for docidx, words in enumerate(self.docs):
+            tf[:, docidx] /= np.max(tf[:, docidx])
+            for word in words:
+                df[self.word2idx[word], 0] += 1
+        idf = np.log(len(self.docs)) - np.log(df)
+
+        return tf*idf
     def matrix(self):
         matrix = np.zeros([len(self.vocabs), len(self.docs)])
         for docidx, words in enumerate(self.docs):
